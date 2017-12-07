@@ -8,7 +8,10 @@ $(document).ready(init);
  */
 function init(){
     //Be ready for the first step to be taken
-    $('#step2,#step3,#step4,#explanation').hide();
+    $('#step2,#step3,#step4,#explanation,#step1').hide();
+
+    //Start loading external dependencies
+    getPersonDB();
 
     //Called when the first step has been made
     $('#step1 .btn').unbind('click').click(function(){
@@ -150,4 +153,38 @@ function submitReport(name, data){
  */
 function capitalize(s){
     return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+}
+
+//Person hash table by their URN
+var persons = {};
+function getPersonDB(){
+    $.get("https://raw.githubusercontent.com/homermultitext/hmt-authlists/master/data/hmtnames.csv?v=" + $.now(), function(data){
+        var lines = data.split('\n'), parts;
+        lines.forEach(function(line){
+            parts = line.split(',');
+            persons[parts[0]] = {
+                label: parts[1],
+                desc: parts[2],
+                status: parts[3]
+            };
+        });
+        getPlaceDB();
+    });
+}
+
+var places = {}
+function getPlaceDB(){
+    $.get("https://raw.githubusercontent.com/homermultitext/hmt-authlists/master/data/hmtplaces.csv?v=" + $.now(), function(data){
+        var lines = data.split('\n'), parts;
+        lines.forEach(function(line){
+           parts = line.split(',');
+           places[parts[0]] = {
+                label: parts[1],
+                desc: parts[2],
+                pleiades: parts[3],
+                status: parts[4]
+           };
+        });
+        $('#step1').fadeIn();
+    });
 }
