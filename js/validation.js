@@ -130,7 +130,16 @@ function submitReport(name, data){
         $('#step2').fadeOut(1000, function(){
             $('#step4').fadeOut(1000), function(){
                 init();
+                $('#validateButton').removeClass('btn-success').addClass('btn-primary');
             }
         });
     });
+}
+
+/**
+ * Turns the string into lowercase witht the first letter uppercase
+ * @param {String} s 
+ */
+function capitalize(s){
+    return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
 }
