@@ -29,158 +29,36 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-xs-4" id="indexDiv">
+            <div class="col-xs-12">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">Indexing</div>
+                    <div class="panel-heading">Choose your type of validation</div>
                     <div class="panel-body">
-                        <h4>
-                            <b>Indexing</b> Iliad Lines</h4>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary" validating="index-iliad">Validate</button>
+                        <div id="step1">
+                            <h4>Step 1: Choose Type</h4>
+                            <div class="btn-group btn-group-justified">
+                                <a href="#" class="btn btn-default">Indexing</a>
+                                <a href="#" class="btn btn-default">Paleo</a>
+                                <a href="#" class="btn btn-default">XML Markup</a>
                             </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
                         </div>
-                        <h4>
-                            <b>Indexing</b> Scholia</h4>
-                        <h5>Main Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary" validating="index-mainScholia">Validate</button>
+                        <div id="step2">
+                            <h4>Step 2: Choose Topic</h4>
+                            <div class="btn-group btn-group-justified">
+                                <a href="#" class="btn btn-default">Iliad Text</a>
+                                <a href="#" class="btn btn-default">Main Scholia</a>
+                                <a href="#" class="btn btn-default">Interior Scholia</a>
+                                <a href="#" class="btn btn-default">Exterior Scholia</a>
+                                <a href="#" class="btn btn-default">Interlinear Scholia</a>
+                                <a href="#" class="btn btn-default">Intermarginal Scholia</a>
                             </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
                         </div>
-                        <h5>Interior Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary" validating="index-interiorScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
+                        <div id="step3">
+                            <h4>Step 3: Type Folio Name</h4>
+                            <input id="folioField" type="text" class="form-control has-warning" placeholder="208v">
                         </div>
-                        <h5>Exterior Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary" validating="index-exteriorScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h5>Intermarginal Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary" validating="index-intermarginalScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h5>Interlinear Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary" validating="index-interlinearScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-4" id="paleoDiv">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Paleography</div>
-                    <div class="panel-body">
-                        <h4>
-                            <b>Paleography</b> of Iliad main text</h4>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" validating="paleo-iliad">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h4>
-                            <b>Paleography</b> of Scholia</h4>
-                        <h5>Main Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" validating="paleo-mainScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h5>Interior Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" validating="paleo-interiorScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h5>Exterior Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" validating="paleo-exteriorScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h5>Intermarginal Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" validating="paleo-intermarginalScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h5>Interlinear Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" validating="paleo-interlinearScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-4" id="markupDiv">
-                <div class="panel panel-danger">
-                    <div class="panel-heading">XML Markup</div>
-                    <div class="panel-body">
-                        <h4>
-                            <b>XML Markup</b> of Iliad main text</h4>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-danger" validating="markup-iliad">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h4>
-                            <b>XML Markup</b> of Scholia</h4>
-                        <h5>Main Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-danger" validating="markup-mainScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h5>Interior Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-danger" validating="markup-interiorScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h5>Exterior Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-danger" validating="markup-exteriorScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h5>Intermarginal Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-danger" validating="markup-intermarginalScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
-                        </div>
-                        <h5>Interlinear Scholia:</h5>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-danger" validating="markup-interlinearScholia">Validate</button>
-                            </div>
-                            <input type="text" class="form-control" placeholder="folio name (e.g. 209v)">
+                        <div id="step4">
+                            <h4>Step 4: Start Validating</h4>
+                            <button id="validateButton" type="button" class="btn btn-block btn-lg btn-primary">Validate</button>
                         </div>
                     </div>
                 </div>

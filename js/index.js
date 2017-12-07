@@ -10,7 +10,7 @@ function Index(target, folio){
 
     //Now decide what to load based on the target
     switch(target.toLowerCase()){
-        case "iliad":
+        case "iliadtext":
             loadFile("relations/venA-textToImage-Iliad/" + folio + ".cex", indexIliad);
         break;
         case "mainscholia":

@@ -1,23 +1,52 @@
 /**
  * Entry point
  */
-$(document).ready(function(){
-    //Attach a listener to all buttons to call the same function
-    $('button').click(function(){
-        var validating = $(this).attr('validating');
-        var folio = $(this).parent().parent().find('input[type="text"]').val().trim();
-        
-        //If there are illegal characters in the string
-        if((folio.replace(/[a-z0-9]/g, '')).length > 0){
-            console.log("Illegal Characters in URN");
-            return false;
-        }
+$(document).ready(init);
+    
+/**
+ * Called to re-init or init
+ */
+function init(){
+    //Be ready for the first step to be taken
+    $('#step2,#step3,#step4').hide();
 
-        //We assume it is a good validating request, let's start it after clearing the field
-        $(this).parent().parent().find('input[type="text"]').val('');
-        startValidation(validating, folio);
+    //Called when the first step has been made
+    $('#step1 .btn').unbind('click').click(function(){
+        //Make sure this is the only active within this button group
+        $(this).parent().find('.active').removeClass('active');
+        $(this).toggleClass('active');
+
+        //Now show step2 and add listeners
+        $('#step2').fadeIn(1000).find('.btn').unbind('click').click(function(){
+            //Make sure this is the only active within this button group
+            $(this).parent().find('.active').removeClass('active');
+            $(this).toggleClass('active');
+            
+            //Now show step3 and add listeners
+            $('#step3').fadeIn(1000);
+            //When we start typing, show step4
+            $('#folioField').focus().keydown(function(event){
+                $('#step4').fadeIn(1000);
+                //After the first key start listening to make sure all keys are correct
+                $('#folioField').unbind('keydown').keydown(function(event){
+                    //Check input
+                });
+                //And add the listener to the validate button
+                $('#validateButton').unbind('click').click(function(){
+                    //Stop listening for more clicks
+                    $('#validateButton').unbind('click').removeClass('btn-primary').addClass('btn-warning').html('Validating...');
+
+                    //Get the data from the selection and sanitize the input
+                    var type = $('#step1 .active').html().toLowerCase().replace(/\s/g, '');
+                    var target = $('#step2 .active').html().toLowerCase().replace(/\s/g, '');
+                    var folio = $('#folioField').val().toLowerCase().replace(/\s/g, '');
+
+                    startValidation(type + "-" + target, folio);
+                });
+            });
+        });
     });
-});
+};
 
 /**
  * This function decides what we're validating
@@ -32,13 +61,13 @@ function startValidation(validating, folio){
     
     //Now switch based on the method
     switch(method){
-        case 'index':
+        case 'indexing':
             Index(target, folio);
         break;
         case 'paleo':
             Paleo(target, folio);
         break;
-        case 'markup':
+        case 'xmlmarkup':
             Markup(target, folio);
         break;
         default:
@@ -92,4 +121,16 @@ function submitReport(name, data){
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    //Now show we're done
+    $('#validateButton').removeClass('btn-warning').addClass('btn-success').html("Validate");
+    $('#folioField').val('');
+    $('.active').removeClass('active');
+    $('#step3').fadeOut(1000, function(){
+        $('#step2').fadeOut(1000, function(){
+            $('#step4').fadeOut(1000), function(){
+                init();
+            }
+        });
+    });
 }
