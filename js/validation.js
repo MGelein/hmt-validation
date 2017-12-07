@@ -66,3 +66,14 @@ function getImageURLFromURN(urn){
     //Now return the finished url
     return url;
 }
+
+/**
+ * Loads a file from the server
+ * @param {String} file the url of the file to load 
+ * @param {Function} callback called with the loaded data as an argument
+ */
+function loadFile(file, callback){
+    $.get("leiden2017/" + file, function(data){
+        callback(data);
+    });
+}
