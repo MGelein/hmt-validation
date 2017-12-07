@@ -56,11 +56,26 @@ function validateXML(file){
         report += "| " + $(this).text() + " | " + urn + " | " + resolved + " | " + desc + " | \n";
     });
 
+    //Then the table of place names
     report += startNewTable("placeName");
-    var placeNames = $(file).find('placeName');
+    var placeNames = $(file).find('placeName').each(function(){
+        urn = $(this).attr('n');
+        place = places[urn];
+        resolved = place ? place.label: "No Match";
+        desc = place ? place.desc : "No Match";
+        report += "| " + $(this).text() + " | " + urn + " | " + resolved + " | " + desc + " | \n";
+    });;
 
+    //In ethnic check both place and personal names
     report += startNewTable("rs");
-    var rsNames = $(file).find('rs');
+    var rsNames = $(file).find('rs').each(function(){
+        urn = $(this).attr('n');
+        place = places[urn];
+        place = place ? place : persons[urn];
+        resolved = place ? place.label: "No Match";
+        desc = place ? place.desc : "No Match";
+        report += "| " + $(this).text() + " | " + urn + " | " + resolved + " | " + desc + " | \n";
+    });
 
     submitReport("markup-" + TYPE + "-" + FOLIO + ".md", report);
 }
