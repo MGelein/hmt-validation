@@ -2,19 +2,27 @@
  * Entry point
  */
 $(document).ready(init);
-    
+
 /**
  * Called to re-init or init
  */
 function init(){
     //Be ready for the first step to be taken
-    $('#step2,#step3,#step4').hide();
+    $('#step2,#step3,#step4,#explanation').hide();
 
     //Called when the first step has been made
     $('#step1 .btn').unbind('click').click(function(){
         //Make sure this is the only active within this button group
         $(this).parent().find('.active').removeClass('active');
         $(this).toggleClass('active');
+
+        if($(this).html().indexOf('aleo') != -1){
+            //Show the explanation if Paleo was chosen
+            $('#explanation').html("For Paleography Scholia type doesn't matter, choose any type or Iliad text");
+            $('#explanation').fadeIn();
+        }else{
+            $('#explanation').fadeOut();
+        }
 
         //Now show step2 and add listeners
         $('#step2').fadeIn(1000).find('.btn').unbind('click').click(function(){
@@ -123,14 +131,14 @@ function submitReport(name, data){
     document.body.removeChild(link);
 
     //Now show we're done
-    $('#validateButton').removeClass('btn-warning').addClass('btn-success').html("Validate");
+    $('#validateButton').removeClass('btn-warning').addClass('btn-success').html("Done!");
     $('#folioField').val('');
     $('.active').removeClass('active');
     $('#step3').fadeOut(1000, function(){
         $('#step2').fadeOut(1000, function(){
+            $('#validateButton').removeClass('btn-success').addClass('btn-primary').html('Validate');
             $('#step4').fadeOut(1000), function(){
                 init();
-                $('#validateButton').removeClass('btn-success').addClass('btn-primary');
             }
         });
     });
