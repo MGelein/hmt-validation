@@ -33,13 +33,36 @@ function startValidation(validating, folio){
     //Now switch based on the method
     switch(method){
         case 'index':
+            Index(target, folio);
         break;
         case 'paleo':
+            Paleo(target, folio);
         break;
         case 'markup':
+            Markup(target, folio);
         break;
         default:
             console.log("Unknown method of validation: " + method);
         break;
     }
+}
+
+/**
+ * Tries to parse a URN into a <img> element
+ * @param {URN} urn a urn string data boject
+ */
+function getImageURLFromURN(urn){
+    //Base image location
+    var url = "http://www.homermultitext.org/iipsrv?OBJ=IIP,1.0&FIF=/project/homer/pyramidal/VenA/%FOLIO%.tif&RGN=%REGION%&WID=800&CVT=JPEG";
+
+    //Split the URN into the necessary parts
+    var region = urn.getModifier();
+    var folioName = urn.parts[4].replace("@" + region, '');
+    
+    //Replace the region
+    url = url.replace("%REGION%", region);
+    url = url.replace("%FOLIO%", folioName);
+
+    //Now return the finished url
+    return url;
 }

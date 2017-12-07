@@ -38,3 +38,11 @@ function URN(urnString){
     this.valid = true;
     return this;
 }
+
+/**
+ * Returns the modifier (@RGN) for example;
+ */
+URN.prototype.getModifier = function(){
+    if(this.urnString.indexOf("@") == -1) return "";
+    return this.urnString.split("@")[1];
+}
