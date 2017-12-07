@@ -53,27 +53,43 @@ function startValidation(validating, folio){
  */
 function getImageURLFromURN(urn){
     //Base image location
-    var url = "http://www.homermultitext.org/iipsrv?OBJ=IIP,1.0&FIF=/project/homer/pyramidal/VenA/%FOLIO%.tif&RGN=%REGION%&WID=800&CVT=JPEG";
+    var url = "http://www.homermultitext.org/iipsrv?OBJ=IIP,1.0&FIF=/project/homer/pyramidal/VenA/%FOLIO%.tif&RGN=REGION&WID=800&CVT=JPEG";
 
     //Split the URN into the necessary parts
     var region = urn.getModifier();
     var folioName = urn.parts[4].replace("@" + region, '');
     
     //Replace the region
-    url = url.replace("%REGION%", region);
-    url = url.replace("%FOLIO%", folioName);
+    url = url.replace("REGION", region.trim());
+    url = url.replace("%FOLIO%", folioName.trim());
 
     //Now return the finished url
     return url;
 }
 
 /**
- * Loads a file from the server
+ * Loads a file from the raw github server
  * @param {String} file the url of the file to load 
  * @param {Function} callback called with the loaded data as an argument
  */
 function loadFile(file, callback){
-    $.get("leiden2017/" + file, function(data){
+    $.get("https://raw.githubusercontent.com/hmteditors/leiden2017/master/" + file.trim(), function(data){
         callback(data);
     });
+}
+
+/**
+ * Submits the generated report file to be downloaded by the user
+ * @param {String} name
+ * @param {String} data 
+ */
+function submitReport(name, data){
+    var data = "data:text/json;charset=utf-8," + encodeURI(data);
+    //Then create the clicked link and download
+    var link = document.createElement('a');
+    link.download = name;
+    link.href = data;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }

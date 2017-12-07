@@ -1,3 +1,4 @@
+var FOLIO;
 /**
  * Defines the Index class. This 'class' handles validation of indexing
  * @param {String} target defines what kind of indexing we're validating
@@ -5,6 +6,7 @@
  */
 function Index(target, folio){
     console.log("Starting validation of indexing of " + target + " for " + folio);
+    FOLIO = folio;
 
     //Now decide what to load based on the target
     switch(target.toLowerCase()){
@@ -41,12 +43,13 @@ function indexIliad(file){
     var parts = []; var reportLine;
     for(var i = 0; i < lines.length; i++){
         //Make the default line
-        reportLine = "|PASSAGE|IMAGE|\n";
+        reportLine = "| PASSAGE | IMAGE |\n";
         //Split the columns
         parts = lines[i].split("#");
         //If there are not 4 parts, please stop
-        if(parts.length != 4){
+        if(parts.length != 4 && parts.length != 3){
             reportLine.replace("PASSAGE", "Wrong number of columns in line " + (i + 2));
+            report += reportLine;
             //Continue with the next line
             continue;
         }
@@ -62,7 +65,7 @@ function indexIliad(file){
         //Try to parse the image URN
         var imageURN = new URN(parts[2]);
         if(imageURN){
-            reportLine = reportLine.replace("IMAGE", getImageURLFromURN(imageURN));
+            reportLine = reportLine.replace("IMAGE", "![" + passageURN.parts[4] + "](" + getImageURLFromURN(imageURN) + ")");
         }else{
             reportLine = reportLine.replace("IMAGE", "Bad URN");
         }
@@ -70,4 +73,6 @@ function indexIliad(file){
         //Add the line to the report
         report += reportLine;
     }
+
+    submitReport("indexing-iliad-" + FOLIO + ".md", report);
 }
