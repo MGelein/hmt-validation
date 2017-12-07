@@ -10,8 +10,8 @@ function init(){
     //Be ready for the first step to be taken
     $('#step2,#step3,#step4,#explanation,#step1').hide();
 
-    //Start loading external dependencies
-    getPersonDB();
+    //Start loading external dependencies if not already loaded
+    if(!persons) getPersonDB();
 
     //Called when the first step has been made
     $('#step1 .btn').unbind('click').click(function(){
@@ -41,6 +41,7 @@ function init(){
                 //After the first key start listening to make sure all keys are correct
                 $('#folioField').unbind('keydown').keydown(function(event){
                     //Check input
+                    if(event.which == 13) $('#validateButton').click();
                 });
                 //And add the listener to the validate button
                 $('#validateButton').unbind('click').click(function(){
@@ -119,21 +120,52 @@ function loadFile(file, callback){
 }
 
 /**
- * Submits the generated report file to be downloaded by the user
+ * Submits the generated report file to be reviewed and downloaded by the user
  * @param {String} name
  * @param {String} data 
  */
 function submitReport(name, data){
-    var data = "data:text/json;charset=utf-8," + encodeURI(data);
-    //Then create the clicked link and download
-    var link = document.createElement('a');
-    link.download = name;
-    link.href = data;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    //Create the markdown convertor
+    showdown.setOption('tables', true);
+    var convertor = new showdown.Converter();
 
-    //Now show we're done
+    //Set the content after conversion
+    var html = "<p>Please carefully validate the data below. If anything seems wrong, fix it in the file and revalidate. You can either approve or cancel this validation at the bottom of this preview</p>";
+    html += convertor.makeHtml(data);
+    html += getPreviewEnd();
+    $('#normalRow').fadeOut(600, function(){
+        $('#previewRow').fadeIn().find('.panel-body').html(html);
+        styleAllTables();
+        $('#correctButton').unbind('click').click(function(){
+            downloadReport(name, data);
+        });
+        $('#incorrectButton').unbind('click').click(function(){
+            startReinit();
+        });
+    });
+}
+
+/**
+ * This returns the end String of a preview window
+ */
+function getPreviewEnd(){
+    var s = "<h4>Is This Validation Report Correct?</h4><p class='col-xs-6'>";
+    s += "If this validation report is <span class='bg-success text-success'>correct</span>, please download it, put it in the <code>reports</code> folder and <code>git push</code> it to the online repository. You can then mark your task as done.</p>";
+    s += "<p class='col-xs-6'>If this validation report is <span class='bg-danger text-danger'>incorrect</span>, please cancel this preview, make the necessary revisions and revalidate."
+    s += "</p><div class='btn-group btn-group-justified'>";
+    s += "<a id='correctButton' href='#' class='btn btn-success'>Correct (Download File)</a>";
+    s += "<a id='incorrectButton' href='#' class='btn btn-danger'>Incorrect (Cancel File)</a>";
+    s += "</div>"
+    return s;
+}
+
+/**
+ * Starts the reinitializartion
+ */
+function startReinit(){
+    $('#previewRow').fadeOut(600, function(){
+        $('#normalRow').fadeIn();
+    });
     $('#validateButton').removeClass('btn-warning').addClass('btn-success').html("Done!");
     $('#folioField').val('');
     $('.active').removeClass('active');
@@ -148,6 +180,34 @@ function submitReport(name, data){
 }
 
 /**
+ * Style all tables
+ */
+function styleAllTables(){
+    //Apply the correct bootstrap classes
+    $('table').addClass('table table-striped table-bordered table-responsive');
+    $('img').addClass('imgPreview')
+}
+
+/**
+ * Actually downloads the report
+ * @param {String} name 
+ * @param {String} data 
+ */
+function downloadReport(name, data){
+    var data = "data:text/plain;charset=utf-8," + encodeURI(data);
+    //Then create the clicked link and download
+    var link = document.createElement('a');
+    link.download = name;
+    link.href = data;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    //Now reinit the doc
+    startReinit();
+}
+
+/**
  * Turns the string into lowercase witht the first letter uppercase
  * @param {String} s 
  */
@@ -156,8 +216,9 @@ function capitalize(s){
 }
 
 //Person hash table by their URN
-var persons = {};
+var persons;
 function getPersonDB(){
+    persons = {};
     $.get("https://raw.githubusercontent.com/homermultitext/hmt-authlists/master/data/hmtnames.csv?v=" + $.now(), function(data){
         var lines = data.split('\n'), parts;
         lines.forEach(function(line){
@@ -172,8 +233,9 @@ function getPersonDB(){
     });
 }
 
-var places = {}
+var places;
 function getPlaceDB(){
+    places = {};
     $.get("https://raw.githubusercontent.com/homermultitext/hmt-authlists/master/data/hmtplaces.csv?v=" + $.now(), function(data){
         var lines = data.split('\n'), parts;
         lines.forEach(function(line){
@@ -185,6 +247,9 @@ function getPlaceDB(){
                 status: parts[4]
            };
         });
-        $('#step1').fadeIn();
+        $('#stepLoading').fadeOut(500, function(){
+            $('#step1').fadeIn();
+            $(this).remove();
+        })
     });
 }

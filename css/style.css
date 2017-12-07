@@ -9,6 +9,10 @@ input{
   text-align: center;
 }
 
+.imgPreview{
+  max-height: 20vh;
+}
+
 #header{
   margin-top: 2em;
   padding: 1em;

@@ -13,6 +13,7 @@
     <script src="js/index.js"></script>
     <script src="js/paleo.js"></script>
     <script src="js/markup.js"></script>
+    <script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.4/dist/showdown.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -29,11 +30,12 @@
         <h1>HMT Online Validation</h1>
     </div>
     <div class="container">
-        <div class="row">
+        <div class="row" id="normalRow">
             <div class="col-xs-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">Choose your type of validation</div>
                     <div class="panel-body">
+                        <div id="stepLoading"><h2>Loading data from Github, please be patient...</h2></div>
                         <div id="step1" style="display:none">
                             <h4>Step 1: Choose Type</h4>
                             <div class="btn-group btn-group-justified">
@@ -62,6 +64,15 @@
                             <h4>Step 4: Start Validating</h4>
                             <button id="validateButton" type="button" class="btn btn-block btn-lg btn-primary">Validate</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="previewRow" style="display: none;">
+            <div class="col-xs-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Markdown Preview</div>
+                    <div class="panel-body">
                     </div>
                 </div>
             </div>
