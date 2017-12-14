@@ -1,3 +1,5 @@
+var NO_MATCH = "<span class='nomatch text-danger'>No Match</span>";
+
 /**
  * Entry point
  */
@@ -186,7 +188,7 @@ function styleAllTables(){
     //Apply the correct bootstrap classes
     $('table').addClass('table table-striped table-bordered table-responsive');
     $('img').addClass('imgPreview');
-    $('.nomatch').parent().parent().addClass('warning');
+    $('.nomatch').parent().parent().addClass('danger'); 
 }
 
 /**

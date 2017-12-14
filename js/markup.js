@@ -71,6 +71,7 @@ function validateXML(file){
     var type = "";
     var rsNames = $(file).find('rs').each(function(){
         urn = $(this).attr('n');
+        urn = urn || NO_MATCH;
         type = $(this).attr('type');
         if(type == 'waw') return;
         place = places[urn];
