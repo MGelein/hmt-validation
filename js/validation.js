@@ -1,4 +1,5 @@
 var NO_MATCH = "<span class='nomatch text-danger'>No Match</span>";
+var NO_URN = "<span class='nomatch text-danger'>No URN</span>";
 
 /**
  * Entry point

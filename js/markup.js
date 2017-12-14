@@ -50,6 +50,7 @@ function validateXML(file){
     report += startNewTable("persName");
     var persNames = $(file).find('persName').each(function(){
         urn = $(this).attr('n');
+        urn = urn || NO_URN;
         person = persons[urn];
         resolved = person ? person.label : NO_MATCH;
         desc = person ? person.desc : NO_MATCH;
@@ -60,6 +61,7 @@ function validateXML(file){
     report += startNewTable("placeName");
     var placeNames = $(file).find('placeName').each(function(){
         urn = $(this).attr('n');
+        urn = urn || NO_URN;
         place = places[urn];
         resolved = place ? place.label: NO_MATCH;
         desc = place ? place.desc : NO_MATCH;
@@ -71,7 +73,7 @@ function validateXML(file){
     var type = "";
     var rsNames = $(file).find('rs').each(function(){
         urn = $(this).attr('n');
-        urn = urn || NO_MATCH;
+        urn = urn || NO_URN;
         type = $(this).attr('type');
         if(type == 'waw') return;
         place = places[urn];
