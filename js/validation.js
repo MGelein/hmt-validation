@@ -185,7 +185,8 @@ function startReinit(){
 function styleAllTables(){
     //Apply the correct bootstrap classes
     $('table').addClass('table table-striped table-bordered table-responsive');
-    $('img').addClass('imgPreview')
+    $('img').addClass('imgPreview');
+    $('.nomatch').parent().parent().addClass('warning');
 }
 
 /**

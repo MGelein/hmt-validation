@@ -51,8 +51,8 @@ function validateXML(file){
     var persNames = $(file).find('persName').each(function(){
         urn = $(this).attr('n');
         person = persons[urn];
-        resolved = person ? person.label : "No Match";
-        desc = person ? person.desc : "No Match";
+        resolved = person ? person.label : NO_MATCH;
+        desc = person ? person.desc : NO_MATCH;
         report += "| " + $(this).text() + " | " + urn + " | " + resolved + " | " + desc + " | \n";
     });
 
@@ -61,19 +61,22 @@ function validateXML(file){
     var placeNames = $(file).find('placeName').each(function(){
         urn = $(this).attr('n');
         place = places[urn];
-        resolved = place ? place.label: "No Match";
-        desc = place ? place.desc : "No Match";
+        resolved = place ? place.label: NO_MATCH;
+        desc = place ? place.desc : NO_MATCH;
         report += "| " + $(this).text() + " | " + urn + " | " + resolved + " | " + desc + " | \n";
     });;
 
     //In ethnic check both place and personal names
     report += startNewTable("rs");
+    var type = "";
     var rsNames = $(file).find('rs').each(function(){
         urn = $(this).attr('n');
+        type = $(this).attr('type');
+        if(type == 'waw') return;
         place = places[urn];
         place = place ? place : persons[urn];
-        resolved = place ? place.label: "No Match";
-        desc = place ? place.desc : "No Match";
+        resolved = place ? place.label: NO_MATCH;
+        desc = place ? place.desc : NO_MATCH;
         report += "| " + $(this).text() + " | " + urn + " | " + resolved + " | " + desc + " | \n";
     });
 
