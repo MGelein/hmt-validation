@@ -73,7 +73,7 @@ function indexScholia(file){
         if(passageURN){
             reportLine = reportLine.replace("PASSAGE", passageURN.parts[4]);
         }else{
-            reportLine = reportLine.replace("PASSAGE", "Bad URN");
+            reportLine = reportLine.replace("PASSAGE", BAD_URN);
         }
 
         //Try to parse the image URN
@@ -81,7 +81,7 @@ function indexScholia(file){
         if(imageURN){
             reportLine = reportLine.replace("IMAGE", "![" + passageURN.parts[4] + "](" + getImageURLFromURN(imageURN) + ")");
         }else{
-            reportLine = reportLine.replace("IMAGE", "Bad URN");
+            reportLine = reportLine.replace("IMAGE", BAD_URN);
         }
 
         //Add the line to the report
@@ -126,7 +126,7 @@ function indexIliad(file){
         if(passageURN){
             reportLine = reportLine.replace("PASSAGE", passageURN.parts[4]);
         }else{
-            reportLine = reportLine.replace("PASSAGE", "Bad URN");
+            reportLine = reportLine.replace("PASSAGE", BAD_URN);
         }
 
         //Try to parse the image URN
@@ -134,7 +134,7 @@ function indexIliad(file){
         if(imageURN){
             reportLine = reportLine.replace("IMAGE", "![" + passageURN.parts[4] + "](" + getImageURLFromURN(imageURN) + ")");
         }else{
-            reportLine = reportLine.replace("IMAGE", "Bad URN");
+            reportLine = reportLine.replace("IMAGE", BAD_URN);
         }
 
         //Add the line to the report

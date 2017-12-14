@@ -1,5 +1,6 @@
 var NO_MATCH = "<span class='nomatch text-danger'>No Match</span>";
 var NO_URN = "<span class='nomatch text-danger'>No URN</span>";
+var BAD_URN = "<span class='badmatch text-warning'>Malformed URN</span>";
 
 /**
  * Entry point
@@ -190,6 +191,7 @@ function styleAllTables(){
     $('table').addClass('table table-striped table-bordered table-responsive');
     $('img').addClass('imgPreview');
     $('.nomatch').parent().parent().addClass('danger'); 
+    $('.badmatch').parent().parent().addClass('warning');
 }
 
 /**

@@ -49,7 +49,7 @@ function validatePaleo(file){
         if(recordURN){
             reportLine = reportLine.replace("RECORD", recordURN.urnString);
         }else{
-            reportLine = reportLine.replace("RECORD", "Bad URN");
+            reportLine = reportLine.replace("RECORD", BAD_URN);
         }
 
         //Try to parse the record URN
@@ -57,7 +57,7 @@ function validatePaleo(file){
         if(readingURN){
             reportLine = reportLine.replace("READING", readingURN.getModifier());
         }else{
-            reportLine = reportLine.replace("READING", "Bad URN");
+            reportLine = reportLine.replace("READING", BAD_URN);
         }
 
         //Try to parse the image URN
@@ -65,7 +65,7 @@ function validatePaleo(file){
         if(imageURN){
             reportLine = reportLine.replace("IMAGE", "![" + recordURN.parts[4] + "](" + getImageURLFromURN(imageURN) + ")");
         }else{
-            reportLine = reportLine.replace("IMAGE", "Bad URN");
+            reportLine = reportLine.replace("IMAGE", BAD_URN);
         }
 
         //Add the line to the report
