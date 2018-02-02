@@ -11,6 +11,9 @@ $(document).ready(init);
  * Called to re-init or init
  */
 function init(){
+    //Disable caching
+    $.ajaxSetup({cache:false});
+
     //Be ready for the first step to be taken
     $('#step2,#step3,#step4,#explanation,#step1').hide();
 
