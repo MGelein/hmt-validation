@@ -118,7 +118,10 @@ function getImageURLFromURN(urn){
  * @param {Function} callback called with the loaded data as an argument
  */
 function loadFile(file, callback){
+    console.log("loading from url:  + https://raw.githubusercontent.com/hmteditors/leiden2017/master/" + file.trim());
     $.get("https://raw.githubusercontent.com/hmteditors/leiden2017/master/" + file.trim(), function(data){
+        var excerpt = data.length > 200 ? data.substring(0, 200) : data;
+        console.log( excerpt + "...");
         callback(data);
     });
 }
