@@ -51,7 +51,7 @@ function validateXML(file){
     var persNames = $(file).find('persName').each(function(){
         urn = $(this).attr('n');
         urn = urn || NO_URN;
-        urn = urn.replace('pers.v1', 'pers');
+        urn = urn.replace('pers', 'pers.v1');
         person = persons[urn];
         resolved = person ? person.label : NO_MATCH;
         desc = person ? person.desc : NO_MATCH;
@@ -63,7 +63,7 @@ function validateXML(file){
     var placeNames = $(file).find('placeName').each(function(){
         urn = $(this).attr('n');
         urn = urn || NO_URN;
-        urn = urn.replace('place.v1', 'place');
+        urn = urn.replace('place', 'place.v1');
         place = places[urn];
         resolved = place ? place.label: NO_MATCH;
         desc = place ? place.desc : NO_MATCH;
@@ -76,7 +76,8 @@ function validateXML(file){
     var rsNames = $(file).find('rs').each(function(){
         urn = $(this).attr('n');
         urn = urn || NO_URN;
-        urn = urn.replace('place.v1', 'place');
+        urn = urn.replace('place', 'place.v1');
+        urn = urn.replace('pers', 'pers.v1');
         type = $(this).attr('type');
         if(type == 'waw') return;
         place = places[urn];
