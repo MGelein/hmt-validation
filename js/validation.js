@@ -235,9 +235,9 @@ function getPersonDB() {
         var table = cexJSON(data, "#!citedata");
         table.forEach(function(person){
             persons[person.urn] = {
-                label: person.Label,
-                desc: person.Description,
-                status: person.Status
+                label: person.label,
+                desc: person.description,
+                status: person.status
             }
         });  
 
@@ -252,10 +252,10 @@ function getPlaceDB() {
         var table = cexJSON(data, "#!citedata");
         table.forEach(function(place){
             places[place.urn] = {
-                label: place.Label,
-                desc: place.Description,
-                pleiades: place.Pleiades,
-                status: place.Status
+                label: place.label,
+                desc: place.description,
+                pleiades: place.pleiades,
+                status: place.status
             }
         });
         $('#stepLoading').fadeOut(500, function () {
@@ -311,6 +311,5 @@ function cexJSON(file, header) {
         //Now add the entry to the list
         table.push(entry);
     }
-
     return table;
 }
